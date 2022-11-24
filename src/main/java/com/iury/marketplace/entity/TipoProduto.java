@@ -9,7 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
-public class TipoUsuario {
+public class TipoProduto {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,12 +18,12 @@ public class TipoUsuario {
     private String descricao;
 
     @OneToMany(mappedBy = "tipo")
-    private List<Usuario> usuario;
+    List<Produto> produto;
 
-    public TipoUsuario() {
+    public TipoProduto() {
     }
 
-    public TipoUsuario(Long id, String descricao) {
+    public TipoProduto(Long id, String descricao) {
         this.id = id;
         this.descricao = descricao;
     }
@@ -42,6 +42,14 @@ public class TipoUsuario {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public List<Produto> getProduto() {
+        return this.produto;
+    }
+
+    public void setProduto(List<Produto> produto) {
+        this.produto = produto;
     }
 
 }

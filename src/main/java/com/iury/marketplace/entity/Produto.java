@@ -1,15 +1,15 @@
 package com.iury.marketplace.entity;
 
-import java.util.List;
-
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
-public class TipoUsuario {
+public class Produto {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -17,15 +17,17 @@ public class TipoUsuario {
 
     private String descricao;
 
-    @OneToMany(mappedBy = "tipo")
-    private List<Usuario> usuario;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "tipo_id", nullable = false)
+    private TipoProduto tipo;
 
-    public TipoUsuario() {
+    public Produto() {
     }
 
-    public TipoUsuario(Long id, String descricao) {
+    public Produto(Long id, String descricao, TipoProduto tipo) {
         this.id = id;
         this.descricao = descricao;
+        this.tipo = tipo;
     }
 
     public Long getId() {
@@ -42,6 +44,14 @@ public class TipoUsuario {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public TipoProduto getTipo() {
+        return this.tipo;
+    }
+
+    public void setTipo(TipoProduto tipo) {
+        this.tipo = tipo;
     }
 
 }
