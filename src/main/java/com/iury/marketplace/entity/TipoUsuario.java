@@ -2,6 +2,7 @@ package com.iury.marketplace.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,9 +13,10 @@ import javax.persistence.OneToMany;
 public class TipoUsuario {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(nullable = false)
     private String descricao;
 
     @OneToMany(mappedBy = "tipo")

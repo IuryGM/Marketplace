@@ -2,6 +2,7 @@ package com.iury.marketplace.entity;
 
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -15,14 +16,26 @@ import javax.persistence.ManyToMany;
 public class Estoque {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(nullable = false)
     private Long quantidade;
 
+    @Column(nullable = false)
     private Float valorUnidade;
 
-    private Long idProduto;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "estoque_produto",
+        joinColumns = {
+            @JoinColumn(name = "id_estoque") 
+        }, 
+        inverseJoinColumns = {
+            @JoinColumn(name = "id_produto")
+        }
+        )
+    private List<Produto> produtos;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -37,12 +50,12 @@ public class Estoque {
     public Estoque() {
     }
 
-    public Estoque(Long id, Long quantidade, Float valorUnidade, List<Usuario> usuarios, Long idProduto) {
+    public Estoque(Long id, Long quantidade, Float valorUnidade, List<Produto> produtos, List<Usuario> usuarios) {
         this.id = id;
         this.quantidade = quantidade;
         this.valorUnidade = valorUnidade;
+        this.produtos = produtos;
         this.usuarios = usuarios;
-        this.idProduto = idProduto;
     }
 
     public Long getId() {
@@ -77,12 +90,12 @@ public class Estoque {
         this.usuarios = usuarios;
     }
 
-    public Long getIdProduto() {
-        return this.idProduto;
+    public List<Produto> getProdutos() {
+        return this.produtos;
     }
 
-    public void setIdProduto(Long idProduto) {
-        this.idProduto = idProduto;
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
     }
 
 }
