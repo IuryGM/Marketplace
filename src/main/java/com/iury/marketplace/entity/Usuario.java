@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Usuario {
@@ -25,13 +26,17 @@ public class Usuario {
     @ManyToMany(mappedBy = "usuarios", fetch = FetchType.LAZY)
     private List<Estoque> estoque;
 
+    @OneToMany(mappedBy = "usuario")
+    List<Compra> compras;
+
     public Usuario() {
     }
 
-    public Usuario(Long id, TipoUsuario tipo, List<Estoque> estoque) {
+    public Usuario(Long id, TipoUsuario tipo, List<Estoque> estoque, List<Compra> compras) {
         this.id = id;
         this.tipo = tipo;
         this.estoque = estoque;
+        this.compras = compras;
     }
     
     public List<Estoque> getEstoque() {
@@ -56,6 +61,14 @@ public class Usuario {
 
     public void setTipo(TipoUsuario tipo) {
         this.tipo = tipo;
+    }
+
+    public List<Compra> getCompras() {
+        return this.compras;
+    }
+
+    public void setCompras(List<Compra> compras) {
+        this.compras = compras;
     }
 
 }

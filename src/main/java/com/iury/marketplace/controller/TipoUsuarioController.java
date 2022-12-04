@@ -25,14 +25,14 @@ public class TipoUsuarioController {
         return ResponseEntity.ok().body(this.tipoUsuarioRep.findAll());
     }
 
-    @PostMapping(path = "/add")
-    public ResponseEntity<?> adicionarTipoUsuario(@Valid TipoUsuarioDTO tipoUsuario){
-        try {
-            
-            return ResponseEntity.ok().body("");
-        } catch (Exception e) {
-            return ResponseEntity.internalServerError().body(e.getMessage());
-        }
-    }
+    // @PostMapping(path = "/add")
+    // public ResponseEntity<?> adicionarTipoUsuario(@Valid TipoUsuarioDTO tipoUsuario){
+    //     try {
+    //         return ResponseEntity.ok().body("");
+    //     } catch (Exception e) {
+    //         return ResponseEntity.internalServerError().body(e.getMessage());
+    //     }
+    // }
+
 
 }
